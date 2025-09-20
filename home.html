@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Asuransafe — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d9b4c6d3.js" crossorigin="anonymous" defer></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">AS</div>
+        <div>
+          <div style="font-weight:700">Asuransafe<span style="color:var(--muted);font-weight:400"> — demo</span></div>
+          <div class="muted" style="font-size:13px">Marketplace Asuransi</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#" data-nav="home">Home</a>
+        <!-- login/signup as separate page -->
+        <a id="nav-login" href="auth.html">Login</a>
+        <a id="nav-signup" href="auth.html">Sign Up</a>
+        <a href="#" data-nav="history" id="nav-history">History</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="grid">
+        <div>
+          <!-- HOME -->
+          <section id="page-home" class="card page">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <h2 style="margin:0">Produk Asuransi</h2>
+              <div class="muted">Pilih produk untuk melihat detail & membeli</div>
+            </div>
+
+            <div style="display:flex;gap:10px;margin-bottom:12px">
+              <button class="btn" data-filter="all">Semua</button>
+              <button class="btn ghost" data-filter="car">Asuransi Mobil</button>
+              <button class="btn ghost" data-filter="health">Asuransi Kesehatan</button>
+              <button class="btn ghost" data-filter="life">Asuransi Jiwa</button>
+            </div>
+
+            <div class="products" id="productsList"></div>
+          </section>
+
+          <!-- PRODUCT DETAIL -->
+          <section id="page-detail" class="card page" style="display:none">
+            <button class="btn ghost" id="backToHome"><i class="fa fa-arrow-left"></i> Kembali</button>
+            <div class="detail" style="margin-top:12px">
+              <div class="left">
+                <h3 id="detailTitle"></h3>
+                <div class="muted" id="detailType"></div>
+                <div style="margin-top:12px" id="detailDesc"></div>
+                <div style="margin-top:12px">
+                  <strong>Manfaat utama:</strong>
+                  <ul id="detailBenefits"></ul>
+                </div>
+                <div style="margin-top:12px">Harga mulai: <strong id="detailPrice">—</strong></div>
+                <div style="margin-top:12px">
+                  <button class="btn" id="btnBuy">Beli</button>
+                </div>
+              </div>
+              <div style="width:260px">
+                <div class="card" style="padding:12px">
+                  <div class="photos" id="detailPhotos"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- PURCHASE (CAR) -->
+          <section id="page-buy-car" class="card page" style="display:none">
+            <h3>Beli Asuransi Mobil — <span id="carModelTitle"></span></h3>
+            <form id="formCar" novalidate>
+              <div class="row">
+                <div style="flex:1">
+                  <label>Merk mobil</label>
+                  <input type="text" id="carBrand" required>
+                </div>
+                <div style="width:160px">
+                  <label>Jenis mobil</label>
+                  <input type="text" id="carType" required>
+                </div>
+              </div>
+
+              <div class="row">
+                <div style="width:140px">
+                  <label>Tahun pembuatan</label>
+                  <input type="number" id="carYear" min="1900" max="2100" required>
+                </div>
+                <div style="flex:1">
+                  <label>Harga mobil (Rp)</label>
+                  <input type="number" id="carPrice" required>
+                </div>
+              </div>
+
+              <div class="row">
+                <div style="flex:1">
+                  <label>Nomor plat</label>
+                  <input type="text" id="carPlate" required>
+                </div>
+                <div style="flex:1">
+                  <label>Nomor mesin</label>
+                  <input type="text" id="carEngine" required>
+                </div>
+              </div>
+
+              <div class="row">
+                <div style="flex:1">
+                  <label>Nomor rangka</label>
+                  <input type="text" id="carChassis" required>
+                </div>
+                <div style="flex:1">
+                  <label>Nama pemilik</label>
+                  <input type="text" id="carOwner" required>
+                </div>
+              </div>
+
+              <div style="margin-top:8px">Unggah foto (semua wajib):</div>
+              <div class="row" style="flex-wrap:wrap">
+                <div style="flex:1;min-width:140px"><label>Depan</label><input type="file" id="imgFront" accept="image/*" required></div>
+                <div style="flex:1;min-width:140px"><label>Belakang</label><input type="file" id="imgBack" accept="image/*" required></div>
+                <div style="flex:1;min-width:140px"><label>Kiri</label><input type="file" id="imgLeft" accept="image/*" required></div>
+                <div style="flex:1;min-width:140px"><label>Kanan</label><input type="file" id="imgRight" accept="image/*" required></div>
+                <div style="flex:1;min-width:140px"><label>Dashboard</label><input type="file" id="imgDash" accept="image/*" required></div>
+                <div style="flex:1;min-width:140px"><label>Mesin</label><input type="file" id="imgEnginePhoto" accept="image/*" required></div>
+              </div>
+
+              <div id="carCalc" class="muted"></div>
+              <div style="margin-top:10px">
+                <button class="btn" type="button" id="calcCar">Hitung Premi</button>
+                <button class="btn ghost" type="button" id="toCheckoutFromCar">Checkout</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- PURCHASE (HEALTH) -->
+          <section id="page-buy-health" class="card page" style="display:none">
+            <h3>Beli Asuransi Kesehatan — <span id="healthTitle"></span></h3>
+            <form id="formHealth" novalidate>
+              <div>
+                <label>Nama lengkap sesuai KTP</label>
+                <input type="text" id="hName" required>
+              </div>
+              <div>
+                <label>Tanggal lahir</label>
+                <input type="date" id="hDOB" required>
+              </div>
+              <div>
+                <label>Pekerjaan</label>
+                <input type="text" id="hJob" required>
+              </div>
+              <div class="row">
+                <div style="flex:1">
+                  <label>Merokok?</label>
+                  <select id="hSmoke"><option value="0">Tidak</option><option value="1">Ya</option></select>
+                </div>
+                <div style="flex:1">
+                  <label>Riwayat hipertensi?</label>
+                  <select id="hHipert"><option value="0">Tidak</option><option value="1">Ya</option></select>
+                </div>
+                <div style="flex:1">
+                  <label>Diabetes?</label>
+                  <select id="hDiab"><option value="0">Tidak</option><option value="1">Ya</option></select>
+                </div>
+              </div>
+              <div id="healthCalc" class="muted"></div>
+              <div style="margin-top:10px">
+                <button class="btn" type="button" id="calcHealth">Hitung Premi</button>
+                <button class="btn ghost" type="button" id="toCheckoutFromHealth">Checkout</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- PURCHASE (LIFE) -->
+          <section id="page-buy-life" class="card page" style="display:none">
+            <h3>Beli Asuransi Jiwa — <span id="lifeTitle"></span></h3>
+            <form id="formLife" novalidate>
+              <div>
+                <label>Nama lengkap sesuai KTP</label>
+                <input type="text" id="lName" required>
+              </div>
+              <div>
+                <label>Tanggal lahir</label>
+                <input type="date" id="lDOB" required>
+              </div>
+              <div>
+                <label>Besaran pertanggungan</label>
+                <select id="lCoverage">
+                  <option value="1000000000">Rp1.000.000.000</option>
+                  <option value="2000000000">Rp2.000.000.000</option>
+                  <option value="3500000000">Rp3.500.000.000</option>
+                  <option value="5000000000">Rp5.000.000.000</option>
+                  <option value="10000000000">Rp10.000.000.000</option>
+                </select>
+              </div>
+              <div id="lifeCalc" class="muted"></div>
+              <div style="margin-top:10px">
+                <button class="btn" type="button" id="calcLife">Hitung Premi</button>
+                <button class="btn ghost" type="button" id="toCheckoutFromLife">Checkout</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- CHECKOUT -->
+          <section id="page-checkout" class="card page" style="display:none">
+            <h3>Checkout</h3>
+            <div id="checkoutSummary" class="muted"></div>
+            <div style="margin-top:12px">
+              <label>Metode pembayaran</label>
+              <select id="payMethod"><option value="bank">Transfer Bank</option><option value="card">Kartu Kredit</option><option value="e-wallet">E-Wallet</option></select>
+            </div>
+            <div style="margin-top:12px">
+              <button class="btn" id="payNow">Bayar</button>
+            </div>
+          </section>
+
+          <!-- HISTORY -->
+          <section id="page-history" class="card page" style="display:none">
+            <h3>Histori Pembelian</h3>
+            <div id="historyList" style="margin-top:10px"></div>
+          </section>
+        </div>
+
+        <!-- SIDE PANE -->
+        <aside>
+          <div class="card" style="margin-bottom:12px">
+            <div id="authBox"></div>
+          </div>
+          <div class="card">
+            <h4>Ringkasan</h4>
+            <div class="muted">Tips singkat:</div>
+            <ul style="margin-top:8px">
+              <li>Gunakan akun untuk menyelesaikan pembelian.</li>
+              <li>Semua form melakukan validasi sesuai instruksi tugas.</li>
+              <li>Data disimpan sementara di browser (localStorage) untuk demo.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        Demo dibuat dengan HTML/CSS/JS murni • Font Inter (Google Fonts) • Ikon FontAwesome
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
